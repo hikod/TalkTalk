@@ -1,3 +1,5 @@
+// IMPORTED FROM MODULE 21 CHALLENGE MERN BOOK SEARCH ENGINE STARTER CODE FROM THE GW CODING BOOTCAMP
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
