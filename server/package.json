@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "watch": "nodemon",
+    "seed": "node seeders/seeds.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,11 +14,12 @@
     "nodemon": "^2.0.13"
   },
   "dependencies": {
-    "graphql": "^15.6.1",
+    "apollo-server-express": "^3.3.0",
+    "bcrypt": "^4.0.1",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "graphql": "^15.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.11",
-    "apollo-server-express": "^3.4.0",
-    "bcrypt": "^5.0.1",
-    "express": "^4.17.1"
+    "mongoose": "^5.9.9"
   }
 }
