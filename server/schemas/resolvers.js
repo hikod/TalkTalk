@@ -4,16 +4,6 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    me: async (parent, args, context) => {
-      if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select("-__v -password")
-          .populate("messages");
-        return userData;
-      }
-
-      throw new AuthenticationError("Not logged in");
-    },
     users: async () => {
       return User.find().select("-__v -password").populate("messages");
     },
@@ -54,23 +44,31 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addMessage: async (parent, args, context) => {
-      if (context.user) {
+    sendMessage: async (parent, { to, content }, context) => {
+      try {
+        if (!context.user) {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+
+        const recipient = await User.findOne({ username: to });
+        if (!recipient) {
+          throw new UserInputError("USer not found");
+        }
+
+        if (content.trim() === "") {
+          throw new UserInputError("Message is empty");
+        }
+
         const message = await Message.create({
-          ...args,
-          username: context.user.username,
+          from: context.user.username,
+          to,
+          content,
         });
 
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { messages: message._id } },
-          { new: true }
-        );
-
         return message;
+      } catch (err) {
+        console.log(err);
       }
-
-      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };

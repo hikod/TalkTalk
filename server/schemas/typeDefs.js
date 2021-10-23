@@ -11,9 +11,10 @@ const typeDefs = gql`
 
   type Message {
     _id: ID
-    messageText: String
-    createdAt: String
+    content: String
     username: String
+    to: String
+    createdAt: String
   }
 
   type Auth {
@@ -25,15 +26,14 @@ const typeDefs = gql`
     me: User
     users: [User]
     user(username: String!): User
-    messages(username: String): [Message]
+    messages(from: String): [Message]
     message(_id: ID!): Message
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addMessage(messageText: String!): Message
-    addFriend(friendId: ID!): User
+    sendMessage(to: String!, content: String!): Message!
   }
 `;
 
