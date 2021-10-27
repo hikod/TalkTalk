@@ -39,10 +39,7 @@ const MessageForm = () => {
 
   // update state based on form input changes
   const handleChange = (event) => {
-    if (event.target.value.length <= 280) {
-      setText(event.target.value);
-      setCharacterCount(event.target.value.length);
-    }
+    setText(event.target.value);
   };
 
   // submit form
@@ -57,7 +54,6 @@ const MessageForm = () => {
       io.emit("chat message", content);
       // clear form value
       setText("");
-      // setCharacterCount(0);
     } catch (e) {
       console.error(e);
     }
@@ -79,12 +75,6 @@ const MessageForm = () => {
           ))}
         </p>
       </div>
-      {/* <p
-        className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}
-      >
-        Character Count: {characterCount}/280
-        {error && <span className="ml-2">Something went wrong...</span>}
-      </p> */}
       <form
         className="flex-row justify-center justify-space-between-md align-stretch"
         onSubmit={handleFormSubmit}
