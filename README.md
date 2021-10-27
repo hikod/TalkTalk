@@ -1,18 +1,19 @@
 # TalkTalk
 
 ## User Story
-  
-```
-
-
-```
+AS a social media user   
+I WANT to create a profile on the TalkTalk website   
+SO THAT I can chat with other users who have created profiles and converse online with a database of people
 
 ## Description
-  This portfolio was created by React
-## GitHub_Link
-[Click me]
+This portfolio was created by React
+  
+## Deployed Application Link
+[Click me]()
+
 ## Screenshot
 ![react-portfolio]
+
 ## Table of Contents
 - [Description](#description)
 - [GitHub Link](#GitHub_Link)
@@ -29,23 +30,36 @@
 
   
 ## Languages
-  React,JavaScript,HTML,CSS,
+  React,JavaScript, HTML, CSS, MongDB, Mongoose, Node.js, Express.js
+  
 ## Contributing
   Hikmet Dpgrul
   Raevin Dunson
   Jeevan Thapa
   ChunYu Chang
   
-## Reference
+## References
+Socket.IO: https://dev.to/bravemaster619/how-to-use-socket-io-client-correctly-in-react-app-o65
+Inspired by: https://github.com/okozolin/chat-app-react-node
+Also inspired by: https://github.com/hidjou/node-graphql-react-chat-app
+Helped by: https://www.youtube.com/watch?v=NTU-vLYNTJQ&list=PLMhAeHCz8S3_VYiYxpcXtMz96vePOuOX3&index=8
+
   1.: Reference by friend's frame and skill style
   https://github.com/kuanyilee85/kuanyilee85.github.io <br />
   2.Class Moudles <br />
   https://github.com/mr91217/photo-port<br />
+  
 ## Questions
  Contact us<br />
 
-## Contact
+### Hikmet Dogrul
+GitHub: [hikod](https://github.com/hikod)   
+
+### ChunYu Chang
 GitHub: [mr91217](https://github.com/mr91217)<br />
 <br />
 Email: mr91217@gmail.com<br />
 <br />
+
+### Raevin Dunson
+GitHub: [raevindunson](https://github.com/raevindunson)
