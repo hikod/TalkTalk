@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_MESSAGE } from "../../utils/mutation";
 import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
+import Auth from "../../utils/auth";
+import dateFormat from "../../utils/dateFormat";
+
 // import Messages from "../Messages";
 import io from "socket.io-client";
 import useChat from "../../utils/socket";
@@ -34,6 +37,7 @@ const MessageForm = () => {
         query: QUERY_ME,
         data: { me: { ...me, messages: [...me.messages, addMessage] } },
       });
+      console.log(me);
     },
   });
 
@@ -50,7 +54,7 @@ const MessageForm = () => {
       // await addMessage({
       //   variables: { content },
       // });
-      sendMessage(content);
+      sendMessage(content, Auth.getProfile().data.username);
       io.emit("chat message", content);
       // clear form value
       setText("");
@@ -70,7 +74,7 @@ const MessageForm = () => {
                 message.ownedByCurrentUser ? "my-message" : "received-message"
               }`}
             >
-              {message.body}
+              {message.username.toUpperCase()}: {message.body}
             </li>
           ))}
         </p>
