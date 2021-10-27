@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./MessageForm.css";
-import { useMutation } from "@apollo/client";
-import { ADD_MESSAGE } from "../../utils/mutation";
-import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
+// import { useMutation } from "@apollo/client";
+// import { ADD_MESSAGE } from "../../utils/mutation";
+// import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
 import Auth from "../../utils/auth";
-import dateFormat from "../../utils/dateFormat";
 
 // import Messages from "../Messages";
 import io from "socket.io-client";
@@ -13,32 +12,32 @@ import useChat from "../../utils/socket";
 
 const MessageForm = () => {
   const [content, setText] = useState("");
-  const [characterCount, setCharacterCount] = useState(0);
+  // const [characterCount, setCharacterCount] = useState(0);
   // const [chat, setChat] = useState([]);
   const { messages, sendMessage } = useChat();
 
-  const [addMessage, { error }] = useMutation(ADD_MESSAGE, {
-    update(cache, { data: { addMessage } }) {
-      try {
-        // update message array's cache
-        // could potentially not exist yet, so wrap in a try/catch
-        const { messages } = cache.readQuery({ query: QUERY_MESSAGES });
-        cache.writeQuery({
-          query: QUERY_MESSAGES,
-          data: { messages: [addMessage, ...messages] },
-        });
-      } catch (e) {
-        console.error(e);
-      }
+  // const [addMessage, { error }] = useMutation(ADD_MESSAGE, {
+  //   update(cache, { data: { addMessage } }) {
+  //     try {
+  //       // update message array's cache
+  //       // could potentially not exist yet, so wrap in a try/catch
+  //       const { messages } = cache.readQuery({ query: QUERY_MESSAGES });
+  //       cache.writeQuery({
+  //         query: QUERY_MESSAGES,
+  //         data: { messages: [addMessage, ...messages] },
+  //       });
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
 
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, messages: [...me.messages, addMessage] } },
-      });
-    },
-  });
+  //     // update me object's cache
+  //     const { me } = cache.readQuery({ query: QUERY_ME });
+  //     cache.writeQuery({
+  //       query: QUERY_ME,
+  //       data: { me: { ...me, messages: [...me.messages, addMessage] } },
+  //     });
+  //   },
+  // });
 
   // update state based on form input changes
   const handleChange = (event) => {
