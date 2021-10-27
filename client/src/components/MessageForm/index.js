@@ -68,14 +68,19 @@ const MessageForm = () => {
         <div className="messages-container">
           <ol className="messages-list">
             {messages.map((message, i) => (
-              <li
-                key={i}
-                className={`message-item ${
-                  message.ownedByCurrentUser ? "my-message" : "received-message"
-                }`}
-              >
-                {message.username.toUpperCase()}: {message.body}
-              </li>
+              <div>
+                <li
+                  key={i}
+                  className={`message-item ${
+                    message.ownedByCurrentUser
+                      ? "my-message"
+                      : "received-message"
+                  }`}
+                >
+                  {message.username.toUpperCase()}: {message.body}
+                  <p> Sent at {message.time}</p>
+                </li>
+              </div>
             ))}
           </ol>
         </div>
