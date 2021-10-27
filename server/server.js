@@ -1,4 +1,8 @@
 const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+var cors = require("cors");
+
 const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 
@@ -8,6 +12,7 @@ const db = require("./config/connection");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+// const server = http.createServer(app);
 
 const startServer = async () => {
   const server = new ApolloServer({
@@ -21,7 +26,7 @@ const startServer = async () => {
 };
 
 startServer();
-
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -30,12 +35,25 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/public")));
 }
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/public/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/public/index.html"));
+// });
 
 db.once("open", () => {
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
+  });
+  const io = new Server(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  });
+  io.on("connection", (socket) => {
+    console.log("a user connected");
+    socket.on("chat message", (data) => {
+      console.log(data);
+      io.sockets.emit("chat message", data);
+    });
   });
 });
