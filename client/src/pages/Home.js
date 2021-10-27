@@ -1,6 +1,7 @@
 import React from "react";
 // import MessageList from "../components/MessageList";
 import MessageForm from "../components/MessageForm";
+import { SiWechat } from "react-icons/si/";
 
 import Auth from "../utils/auth";
 // import { useQuery } from "@apollo/client";
@@ -15,14 +16,7 @@ const Home = () => {
   return (
     <main>
       <div className="flex-row justify-space-between">
-        {/* <div className={`col-12 mb-3 ${loggedIn && "col-lg-8"}`}> */}
-        {/* {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <MessageList messages={messages} title="Some Message(s)..." />
-          )} */}
-        {/* </div> */}
-
+        <SiWechat className="App-logo" />
         {loggedIn && (
           <div className="col-12 mb-3">
             <MessageForm />
