@@ -24,16 +24,14 @@ This portfolio was created by React
 - [Questions](#questions)
 
 ## Usage
-  Run the following command at th root of your project and answer the prompted questions:<br />
-
+  Run the following command at the root of your project and answer the prompted questions:<br />
   `npm start`
-
   
 ## Languages
   React,JavaScript, HTML, CSS, MongDB, Mongoose, Node.js, Express.js
   
 ## Contributing
-  Hikmet Dpgrul
+  Hikmet Dogrul
   Raevin Dunson
   Jeevan Thapa
   ChunYu Chang
