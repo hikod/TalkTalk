@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
-
+import "./MessageForm.css";
 import { useMutation } from "@apollo/client";
 import { ADD_MESSAGE } from "../../utils/mutation";
 import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
-
-
-
-
 import Auth from "../../utils/auth";
+import dateFormat from "../../utils/dateFormat";
+
 // import Messages from "../Messages";
 import io from "socket.io-client";
 import useChat from "../../utils/socket";
-var socket = io("http://localhost:3001");
+// var socket = io("http://localhost:3001");
 
-////=========================================////////////
-
-////=========================================////////////
 const MessageForm = () => {
   const [content, setText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
@@ -47,10 +42,7 @@ const MessageForm = () => {
 
   // update state based on form input changes
   const handleChange = (event) => {
-    if (event.target.value.length <= 280) {
-      setText(event.target.value);
-      setCharacterCount(event.target.value.length);
-    }
+    setText(event.target.value);
   };
 
   // submit form
@@ -61,15 +53,10 @@ const MessageForm = () => {
       // await addMessage({
       //   variables: { content },
       // });
-      // console.log(Auth.getProfile.data.username)
       sendMessage(content, Auth.getProfile().data.username);
       io.emit("chat message", content);
-      
-
       // clear form value
       setText("");
-      setCharacterCount(0);
-
     } catch (e) {
       console.error(e);
     }
@@ -77,44 +64,36 @@ const MessageForm = () => {
 
   return (
     <div>
-      <div className="chat-container">
-        <p className="messages-list">
-          {messages.map((message, i) => (
-            <li
-              key={i}
-              className={`message-item ${
-                message.ownedByCurrentUser ? "my-message" : "received-message"
-              }`}
-            >
-              
-              {message.username} :
-              {message.body}
-            </li>
-          ))}
-        </p>
+      <div className="chat-room-container">
+        <div className="messages-container">
+          <ol className="messages-list">
+            {messages.map((message, i) => (
+              <li
+                key={i}
+                className={`message-item ${
+                  message.ownedByCurrentUser ? "my-message" : "received-message"
+                }`}
+              >
+                {message.username.toUpperCase()}: {message.body}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <form
+          className="flex-row justify-center justify-space-between-md align-stretch"
+          onSubmit={handleFormSubmit}
+        >
+          <textarea
+            placeholder="Here's a new message..."
+            value={content}
+            className="form-input col-12 col-md-9"
+            onChange={handleChange}
+          ></textarea>
+          <button className="btn col-12 col-md-3" type="submit">
+            Send
+          </button>
+        </form>
       </div>
-      <p
-        className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}
-      >
-        Character Count: {characterCount}/280
-        {error && <span className="ml-2">Something went wrong...</span>}
-      </p>
-      <form
-        className="flex-row justify-center justify-space-between-md align-stretch"
-        onSubmit={handleFormSubmit}
-      >
-        <textarea
-          placeholder="Here's a new message..."
-          value={content}
-          className="form-input col-12 col-md-9"
-          onChange={handleChange}
-        ></textarea>
-        <button className="btn col-12 col-md-3" type="submit">
-          Submit
-        </button>
-        
-      </form>
-      
     </div>
   );
 };

@@ -35,7 +35,7 @@ const useChat = () => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
       senderId: socketRef.current.id,
-      username:username
+      username: username,
     });
   };
 
