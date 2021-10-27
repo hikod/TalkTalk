@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_MESSAGE } from "../../utils/mutation";
 import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
 // import Messages from "../Messages";
-// import io from "socket.io-client";
+import io from "socket.io-client";
 import useChat from "../../utils/socket";
 // var socket = io("http://localhost:3001");
 
@@ -54,7 +54,7 @@ const MessageForm = () => {
       //   variables: { content },
       // });
       sendMessage(content);
-
+      io.emit("chat message", content);
       // clear form value
       setText("");
       setCharacterCount(0);
