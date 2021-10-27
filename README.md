@@ -5,6 +5,15 @@ AS a social media user
 I WANT to create a profile on the TalkTalk website   
 SO THAT I can chat with other users who have created profiles and converse online with a database of people
 
+## Table of Contents
+- [Description](#description)
+- [Deployed Application Link](#Deployed_Application_Link)
+- [Usage](#usage)
+- [Languages](#languages)
+- [Contributing](#contributing)
+- [References](#references)
+- [Questions](#questions)
+
 ## Description
 This portfolio was created by React
   
@@ -13,15 +22,6 @@ This portfolio was created by React
 
 ## Screenshot
 ![react-portfolio]
-
-## Table of Contents
-- [Description](#description)
-- [GitHub Link](#GitHub_Link)
-- [Usage](#usage)
-- [Languages](#languages)
-- [Contributing](#contributing)
-- [Reference](#reference)
-- [Questions](#questions)
 
 ## Usage
   Run the following command at the root of your project and answer the prompted questions:<br />
