@@ -3,13 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_MESSAGE } from "../../utils/mutation";
 import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
-import Messages from "../Messages";
-import io from "socket.io-client";
-var socket = io("http://localhost:3001");
+// import Messages from "../Messages";
+// import io from "socket.io-client";
+import useChat from "../../utils/socket";
+// var socket = io("http://localhost:3001");
 
 const MessageForm = () => {
   const [content, setText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
+  // const [chat, setChat] = useState([]);
+  const { messages, sendMessage } = useChat();
 
   const [addMessage, { error }] = useMutation(ADD_MESSAGE, {
     update(cache, { data: { addMessage } }) {
@@ -50,9 +53,8 @@ const MessageForm = () => {
       // await addMessage({
       //   variables: { content },
       // });
-      if (content) {
-        socket.emit("chat message", content);
-      }
+      sendMessage(content);
+
       // clear form value
       setText("");
       setCharacterCount(0);
@@ -83,14 +85,20 @@ const MessageForm = () => {
           Submit
         </button>
       </form>
-      {socket ? (
-        <div className="chat-container">
-          <Messages socket={socket} />
-          {/* <MessageInput socket={socket} /> */}
-        </div>
-      ) : (
-        <div>Not Connected</div>
-      )}
+      <div className="chat-container">
+        <p className="messages-list">
+          {messages.map((message, i) => (
+            <li
+              key={i}
+              className={`message-item ${
+                message.ownedByCurrentUser ? "my-message" : "received-message"
+              }`}
+            >
+              {message.body}
+            </li>
+          ))}
+        </p>
+      </div>
     </div>
   );
 };

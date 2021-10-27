@@ -1,14 +1,14 @@
 import React from "react";
-import MessageList from "../components/MessageList";
+// import MessageList from "../components/MessageList";
 import MessageForm from "../components/MessageForm";
 
 import Auth from "../utils/auth";
-import { useQuery } from "@apollo/client";
-import { QUERY_MESSAGES } from "../utils/queries";
+// import { useQuery } from "@apollo/client";
+// import { QUERY_MESSAGES } from "../utils/queries";
 
 const Home = () => {
-  const { loading, data } = useQuery(QUERY_MESSAGES);
-  const messages = data?.messages || [];
+  // const { loading, data } = useQuery(QUERY_MESSAGES);
+  // const messages = data?.messages || [];
 
   const loggedIn = Auth.loggedIn();
 

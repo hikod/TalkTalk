@@ -51,9 +51,9 @@ db.once("open", () => {
   });
   io.on("connection", (socket) => {
     console.log("a user connected");
-    socket.on("chat message", (msg) => {
-      console.log("message: " + msg);
-      io.emit("chat message", msg);
+    socket.on("chat message", (data) => {
+      console.log(data);
+      io.sockets.emit("chat message", data);
     });
   });
 });
