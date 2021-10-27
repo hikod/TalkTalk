@@ -5,17 +5,11 @@ import { ADD_MESSAGE } from "../../utils/mutation";
 import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
 import Messages from "../Messages";
 import io from "socket.io-client";
-// var socket = io("http://localhost:3001");
+var socket = io("http://localhost:3001");
 
 const MessageForm = () => {
   const [content, setText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
-  const [socket, setSocket] = useState(null);
-  useEffect(() => {
-    const newSocket = io(`http://${window.location.hostname}:3000`);
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, [setSocket]);
 
   const [addMessage, { error }] = useMutation(ADD_MESSAGE, {
     update(cache, { data: { addMessage } }) {
