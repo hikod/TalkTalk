@@ -3,12 +3,19 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_MESSAGE } from "../../utils/mutation";
 import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
+
+
+
+
 import Auth from "../../utils/auth";
 // import Messages from "../Messages";
 import io from "socket.io-client";
 import useChat from "../../utils/socket";
 var socket = io("http://localhost:3001");
 
+////=========================================////////////
+
+////=========================================////////////
 const MessageForm = () => {
   const [content, setText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
@@ -105,6 +112,7 @@ const MessageForm = () => {
         <button className="btn col-12 col-md-3" type="submit">
           Submit
         </button>
+        
       </form>
       
     </div>
