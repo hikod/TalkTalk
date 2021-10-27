@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import "./MessageForm.css";
 import { useMutation } from "@apollo/client";
 import { ADD_MESSAGE } from "../../utils/mutation";
 import { QUERY_MESSAGES, QUERY_ME } from "../../utils/queries";
@@ -65,34 +65,36 @@ const MessageForm = () => {
 
   return (
     <div>
-      <div className="chat-container">
-        <p className="messages-list">
-          {messages.map((message, i) => (
-            <li
-              key={i}
-              className={`message-item ${
-                message.ownedByCurrentUser ? "my-message" : "received-message"
-              }`}
-            >
-              {message.username.toUpperCase()}: {message.body}
-            </li>
-          ))}
-        </p>
+      <div className="chat-room-container">
+        <div className="messages-container">
+          <ol className="messages-list">
+            {messages.map((message, i) => (
+              <li
+                key={i}
+                className={`message-item ${
+                  message.ownedByCurrentUser ? "my-message" : "received-message"
+                }`}
+              >
+                {message.username.toUpperCase()}: {message.body}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <form
+          className="flex-row justify-center justify-space-between-md align-stretch"
+          onSubmit={handleFormSubmit}
+        >
+          <textarea
+            placeholder="Here's a new message..."
+            value={content}
+            className="form-input col-12 col-md-9"
+            onChange={handleChange}
+          ></textarea>
+          <button className="btn col-12 col-md-3" type="submit">
+            Send
+          </button>
+        </form>
       </div>
-      <form
-        className="flex-row justify-center justify-space-between-md align-stretch"
-        onSubmit={handleFormSubmit}
-      >
-        <textarea
-          placeholder="Here's a new message..."
-          value={content}
-          className="form-input col-12 col-md-9"
-          onChange={handleChange}
-        ></textarea>
-        <button className="btn col-12 col-md-3" type="submit">
-          Submit
-        </button>
-      </form>
     </div>
   );
 };
