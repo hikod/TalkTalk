@@ -65,6 +65,20 @@ const MessageForm = () => {
 
   return (
     <div>
+      <div className="chat-container">
+        <p className="messages-list">
+          {messages.map((message, i) => (
+            <li
+              key={i}
+              className={`message-item ${
+                message.ownedByCurrentUser ? "my-message" : "received-message"
+              }`}
+            >
+              {message.body}
+            </li>
+          ))}
+        </p>
+      </div>
       <p
         className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}
       >
@@ -85,20 +99,6 @@ const MessageForm = () => {
           Submit
         </button>
       </form>
-      <div className="chat-container">
-        <p className="messages-list">
-          {messages.map((message, i) => (
-            <li
-              key={i}
-              className={`message-item ${
-                message.ownedByCurrentUser ? "my-message" : "received-message"
-              }`}
-            >
-              {message.body}
-            </li>
-          ))}
-        </p>
-      </div>
     </div>
   );
 };
