@@ -37,7 +37,6 @@ const MessageForm = () => {
         query: QUERY_ME,
         data: { me: { ...me, messages: [...me.messages, addMessage] } },
       });
-      console.log(me);
     },
   });
 
