@@ -36,6 +36,10 @@ const useChat = () => {
       body: messageBody,
       senderId: socketRef.current.id,
       username: username,
+      time:
+        new Date(Date.now()).getHours() +
+        ":" +
+        new Date(Date.now()).getMinutes(),
     });
   };
 
