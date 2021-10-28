@@ -1,33 +1,5 @@
 # TalkTalk
 
-## About this Page
-
-Welcome to TalkTalk! Use our application to talk to your friends!
-
-## Screenshot
-
-## Link to Application
-
-## Technologies Used
-
-## About the Creators
-
-Hikmet Dogrul
-
-- GitHub: https://github.com/hikod
-
-Chunyu Chang
-
-- GitHub: https://github.com/mr91217
-
-Raevin Dunson
-
-- GitHub: https://github.com/raevindunson
-
-Jeevan Thapa
-
-- GitHub: https://github.com/jeevanthapa1987
-
 ## User Story
 
 AS a social media user  
@@ -44,8 +16,6 @@ SO THAT I can chat with other users who have created profiles and converse onlin
 This portfolio was created by React
 
 ## GitHub_Link
-
-[Click me]
 
 ## Screenshot
 
