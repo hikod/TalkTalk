@@ -42,9 +42,9 @@ Inspired by: https://github.com/okozolin/chat-app-react-node
 Also inspired by: https://github.com/hidjou/node-graphql-react-chat-app     
 Helped by: https://www.youtube.com/watch?v=NTU-vLYNTJQ&list=PLMhAeHCz8S3_VYiYxpcXtMz96vePOuOX3&index=8     
 
-  1.: Reference by friend's frame and skill style
+  1. Reference by friend's frame and skill style
   https://github.com/kuanyilee85/kuanyilee85.github.io <br />
-  2.Class Modules <br />
+  2. Class Modules <br />
   https://github.com/mr91217/photo-port<br />
   
   
