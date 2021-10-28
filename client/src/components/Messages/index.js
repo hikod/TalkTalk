@@ -1,86 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import "./Messages.css";
 
-// import { useMutation } from "@apollo/client";
-// import { ADD_MESSAGE } from "../../utils/mutation";
-// import { QUERY_MESSAGES } from "../../utils/queries";
+function Messages({ socket }) {
+  const [messages, setMessages] = useState({});
 
-// const ThoughtForm = () => {
-//   const [thoughtText, setText] = useState("");
-//   const [characterCount, setCharacterCount] = useState(0);
+  useEffect(() => {
+    const messageListener = (message) => {
+      setMessages((prevMessages) => {
+        const newMessages = { ...prevMessages };
+        newMessages[message.id] = message;
+        return newMessages;
+      });
+    };
 
-//   const [addMessage, { error }] = useMutation(ADD_MESSAGE, {
-//     update(cache, { data: { addMessage } }) {
-//       try {
-//         // update thought array's cache
-//         // could potentially not exist yet, so wrap in a try/catch
-//         const { messages } = cache.readQuery({ query: QUERY_MESSAGES });
-//         cache.writeQuery({
-//           query: QUERY_MESSAGES,
-//           data: { messages: [addMessage, ...messages] },
-//         });
-//       } catch (e) {
-//         console.error(e);
-//       }
+    const deleteMessageListener = (messageID) => {
+      setMessages((prevMessages) => {
+        const newMessages = { ...prevMessages };
+        delete newMessages[messageID];
+        return newMessages;
+      });
+    };
 
-//       //   // update me object's cache
-//       //   const { me } = cache.readQuery({ query: QUERY_ME });
-//       //   cache.writeQuery({
-//       //     query: QUERY_ME,
-//       //     data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
-//       //   });
-//     },
-//   });
+    socket.on("message", messageListener);
+    socket.on("deleteMessage", deleteMessageListener);
+    socket.emit("getMessages");
 
-//   // update state based on form input changes
-//   const handleChange = (event) => {
-//     if (event.target.value.length <= 280) {
-//       setText(event.target.value);
-//       setCharacterCount(event.target.value.length);
-//     }
-//   };
+    return () => {
+      socket.off("message", messageListener);
+      socket.off("deleteMessage", deleteMessageListener);
+    };
+  }, [socket]);
 
-//   // submit form
-//   const handleFormSubmit = async (event) => {
-//     event.preventDefault();
-
-//     try {
-//       await addMessage({
-//         variables: { content },
-//       });
-
-//       // clear form value
-//       setText("");
-//       setCharacterCount(0);
-//     } catch (e) {
-//       console.error(e);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <p
-//         className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}
-//       >
-//         Character Count: {characterCount}/280
-//         {error && <span className="ml-2">Something went wrong...</span>}
-//       </p>
-//       <form
-//         className="flex-row justify-center justify-space-between-md align-stretch"
-//         onSubmit={handleFormSubmit}
-//       >
-//         <textarea
-//           placeholder="Here's a new thought..."
-//           value={thoughtText}
-//           className="form-input col-12 col-md-9"
-//           onChange={handleChange}
-//         ></textarea>
-//         <button className="btn col-12 col-md-3" type="submit">
-//           Submit
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
+  return (
+    <div className="message-list">
+      {[...Object.values(messages)]
+        .sort((a, b) => a.time - b.time)
+        .map((message) => (
+          <div
+            key={message.id}
+            className="message-container"
+            title={`Sent at ${new Date(message.time).toLocaleTimeString()}`}
+          >
+            <span className="user">{message.user.name}:</span>
+            <span className="message">{message.value}</span>
+            <span className="date">
+              {new Date(message.time).toLocaleTimeString()}
+            </span>
+          </div>
+        ))}
+    </div>
+  );
+}
 
 import Avatar from "./ProPic";
 
